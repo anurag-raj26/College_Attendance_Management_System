@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Attendance System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+
+<body>
+    <header class="topbar">
+        <div>
+            <h1>College Attendance</h1>
+            <p>Student and attendance management</p>
+        </div>
+        <button id="logoutBtn" class="secondary hidden">Logout</button>
+    </header>
+
+    <main class="container">
+        <div id="message" class="message" role="status" aria-live="polite"></div>
+
+        <section id="loginPanel" class="panel login-panel">
+            <h2>Administrator Login</h2>
+            <p class="muted">Sign in to manage students and attendance.</p>
+            <form id="loginForm">
+                <label for="username">Username</label>
+                <input id="username" name="username" autocomplete="username" required maxlength="100" value="admin">
+
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" autocomplete="current-password" required>
+
+                <button type="submit" class="primary full">Login</button>
+            </form>
+            <p class="muted small">Local demo default: admin / admin123</p>
+        </section>
+
+        <section id="dashboard" class="hidden">
+            <div class="welcome">
+                <div>
+                    <h2>Dashboard</h2>
+                    <p class="muted">Manage your college attendance records.</p>
+                </div>
+            </div>
+
+            <div class="stats">
+                <article class="stat-card">
+                    <span>Total students</span>
+                    <strong id="studentCount">0</strong>
+                </article>
+                <article class="stat-card">
+                    <span>Present records</span>
+                    <strong id="presentCount">0</strong>
+                </article>
+                <article class="stat-card">
+                    <span>Absent records</span>
+                    <strong id="absentCount">0</strong>
+                </article>
+            </div>
+
+            <section class="panel">
+                <h2>Add Student</h2>
+                <form id="studentForm" class="form-grid">
+                    <div>
+                        <label for="roll">Roll number</label>
+                        <input id="roll" required maxlength="30">
+                    </div>
+                    <div>
+                        <label for="studentName">Student name</label>
+                        <input id="studentName" required maxlength="100">
+                    </div>
+                    <div>
+                        <label for="course">Course / Class</label>
+                        <input id="course" required maxlength="100">
+                    </div>
+                    <button type="submit" class="primary">Add Student</button>
+                </form>
+            </section>
+
+            <section class="panel">
+                <div class="section-heading">
+                    <h2>Students</h2>
+                    <button id="refreshStudents" class="secondary">Refresh</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Roll</th>
+                                <th>Name</th>
+                                <th>Course</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsBody">
+                            <tr>
+                                <td colspan="4">No students loaded.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Mark Attendance</h2>
+                <form id="attendanceForm">
+                    <div class="form-grid attendance-fields">
+                        <div>
+                            <label for="attendanceDate">Date</label>
+                            <input id="attendanceDate" type="date" required>
+                        </div>
+                        <div>
+                            <label for="subject">Subject</label>
+                            <input id="subject" maxlength="100" placeholder="e.g. Python" required>
+                        </div>
+                        <button type="button" id="loadAttendance" class="secondary">
+                            Load Saved Attendance
+                        </button>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Roll</th>
+                                    <th>Student</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="attendanceBody">
+                                <tr>
+                                    <td colspan="3">Add students first.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button type="submit" class="primary">Save Attendance</button>
+                </form>
+            </section>
+
+            <section class="panel">
+                <div class="section-heading">
+                    <h2>Attendance Report</h2>
+                    <button id="refreshReport" class="secondary">Refresh Report</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Roll</th>
+                                <th>Name</th>
+                                <th>Course</th>
+                                <th>Total</th>
+                                <th>Present</th>
+                                <th>Absent</th>
+                                <th>Present %</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reportBody">
+                            <tr>
+                                <td colspan="7">No report loaded.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        <p>College Attendance System · Python Flask + MySQL</p>
+    </footer>
+</body>
+
+</html>
